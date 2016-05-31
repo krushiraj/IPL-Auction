@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="Test_IPL.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test_IPL.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="/Assets/logo-final.png" Opacity=".2" Stretch="Uniform" />
+    </Page.Resources>
+    
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid Background="{ThemeResource BackgroundBrush}">
+        <TextBlock Text="UNDER CONSTRUCTION!!" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <StackPanel HorizontalAlignment="Center"  VerticalAlignment="Center">
+            <TextBox Name="UserNameBox" IsSpellCheckEnabled="True" IsTextPredictionEnabled="True" Header="Name(this will be displayed in the game):"/>
+            <Button Content="Save" Margin="0,3" Tapped="Button_SaveName" HorizontalAlignment="Right"/>
+            <TextBlock Text="Sounds,"/>
+            
+        </StackPanel>
+    </Grid>
+</Page>

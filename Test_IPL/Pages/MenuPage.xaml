@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="Test_IPL.MenuPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test_IPL"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="/Assets/logo-final.png" Opacity=".2" Stretch="Uniform" />
+    </Page.Resources>
+    
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+   
+
+    <Grid Background="{ThemeResource BackgroundBrush}">
+        <StackPanel>
+            <TextBlock  Text="Please choose an option:" FontWeight="SemiBold" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Host Game" HorizontalAlignment="Center"  Click="HostGameClick" Height="40" Width="120" Margin="0,10"/>
+            <Button Content="Join Game" HorizontalAlignment="Center" Click="JoinGameClick" Height="40" Width="120" Margin="0,0,0,10"/>
+            <Button Content="Settings" HorizontalAlignment="Center" Click="Settings_Click" Height="40" Width="120" Margin="0,0,0,10"/>
+            <Button Content="Instructions" HorizontalAlignment="Center" Click="Instructions_Click" Height="40" Width="120" Margin="0,0,0,10"/>
+            <Button Content="Quit Game" HorizontalAlignment="Center" Click="Quit_Click" Height="40" Width="120" Margin="0,0,0,10"/>
+        </StackPanel>
+        <ContentDialog Name="ExitDialog" HorizontalAlignment="Center" VerticalAlignment="Center" Title="Exit App:" Height="Auto" Width="Auto">
+            <ContentDialog.Transitions>
+                <TransitionCollection>
+                    <ContentThemeTransition/>
+                </TransitionCollection>
+            </ContentDialog.Transitions>
+            <ContentDialog.Content>
+                <TextBlock Text="You are about to exit the app. Are you sure?" />
+            </ContentDialog.Content>
+        </ContentDialog>
+        
+    </Grid>
+    
+
+</Page>

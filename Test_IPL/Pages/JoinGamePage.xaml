@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="Test_IPL.Pages.JoinGamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test_IPL.Pages"
+    xmlns:model="using:Test_IPL"
+    xmlns:vm="using:Test_IPL.ViewModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="/Assets/logo-final.png" Opacity=".2" Stretch="Uniform" />
+    </Page.Resources>
+    
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Page.BottomAppBar>
+        <CommandBar Visibility="{x:Bind ViewModel.GameUnderwayVisibility, Mode=OneWay}" >
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="DisconnectDrive" Label="Leave Game"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="IPL Auction" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="{x:Bind ViewModel.StateName, Mode=OneWay}" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <StackPanel Visibility="{x:Bind ViewModel.JoinVisibility, Mode=OneWay}" Margin="50,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Searching for available games... Launch IPL Auction app on another device and tap Start a new game..." TextWrapping="WrapWholeWords" FontSize="15"/>
+                <ProgressBar Visibility="{x:Bind ViewModel.ProgressBarVisibility}" IsIndeterminate="True" Height="10" Width="Auto"/>
+                <ListView ItemsSource="{x:Bind ViewModel.AvailableGames}" Margin="15" SelectedItem="{x:Bind ViewModel.SelectedGame, Mode=TwoWay}" HorizontalAlignment="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:GameHost">
+                            <TextBlock Text="{x:Bind Name}" FontSize="18" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <TextBox Text="{x:Bind ViewModel.PlayerName, Mode=TwoWay}" Margin="15" Header="Player name" FontSize="18" />
+                <Button Content="Join game" Command="{x:Bind ViewModel.JoinGameCommand}" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

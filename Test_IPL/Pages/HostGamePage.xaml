@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="Test_IPL.Pages.HostGamePage"
+    xmlns:vm="using:Test_IPL.ViewModel"
+    xmlns:model="using:Test_IPL.Model"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Test_IPL.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Page.Resources>
+        <ImageBrush x:Key="BackgroundBrush" ImageSource="/Assets/logo-final.png" Opacity=".2" Stretch="Uniform" />
+        <DataTemplate x:Key="PlayerTemplate" x:DataType="x:String">
+            <Grid>
+                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" 
+                           Text="{x:Bind}" TextWrapping="NoWrap" 
+                           TextTrimming="CharacterEllipsis" 
+                           Margin="12,0,12,12"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="IPL Auction" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="{x:Bind ViewModel.StateName, Mode=OneWay}" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <Grid x:Name="contentGrid" Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Pre-lobby-->
+            <StackPanel Visibility="{x:Bind ViewModel.PreGameVisibility, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox Text="{x:Bind ViewModel.GameName, Mode=TwoWay}" 
+                         Margin="15" Header="Choose a new game name" 
+                         FontSize="18"/>
+                <Button x:Name="Create" Content="Create game" 
+                        Command="{x:Bind ViewModel.CreateGameCommand}" 
+                        MinWidth="150" Grid.Row="1" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!--Lobby-->
+            <StackPanel Visibility="{x:Bind ViewModel.StartVisibility, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Waiting for players... Launch IPL Auction app on another device, and tap Join a game..."
+                           TextWrapping="WrapWholeWords"/>
+                <ProgressBar Visibility="Visible" IsIndeterminate="True"/>
+                <ItemsControl ItemsSource="{x:Bind ViewModel.PlayerNames}" 
+                              ItemTemplate="{StaticResource PlayerTemplate}"
+                              Margin="0,24,0,0"
+                              HorizontalAlignment="Center"/>
+                <Button x:Name="Start" Content="Start game" 
+                        Command="{x:Bind ViewModel.StartGameCommand}"
+                        MinWidth="150" Grid.Row="1" VerticalAlignment="Top"
+                        HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <!--Game underway-->
+        <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.GameUnderwayVisibility, Mode=OneWay}">
+            <TextBlock Text="The game goes here on this page!" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Page>
